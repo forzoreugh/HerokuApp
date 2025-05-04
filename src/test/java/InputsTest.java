@@ -3,10 +3,10 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import java.time.Duration;
 
 public class InputsTest {
@@ -21,26 +21,27 @@ public class InputsTest {
     }
 
     @Test
-    public void CheckInputEntry(){
+    public void сheckInputEntry(){
         driver.get("https://the-internet.herokuapp.com/inputs");
         WebElement inputField = driver.findElement(By.tagName("input"));
         inputField.sendKeys("AaЮю_=:/");
         driver.findElement(By.tagName("input")).sendKeys(Keys.ARROW_UP);
-        Assert.assertEquals("1", inputField.getAttribute("value")); // not correct + arrow up
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals("1", inputField.getAttribute("value")); // not correct + arrow up
         driver.findElement(By.tagName("input")).clear();
         inputField.sendKeys("AaЮю_=:/");
         driver.findElement(By.tagName("input")).sendKeys(Keys.ARROW_DOWN);
-        Assert.assertEquals("-1", inputField.getAttribute("value")); // not correct + arrow down
+        softAssert.assertEquals("-1", inputField.getAttribute("value")); // not correct + arrow down
         driver.findElement(By.tagName("input")).clear();
         inputField.sendKeys("50");
         for (int x = 0; x < 10; x++){
             driver.findElement(By.tagName("input")).sendKeys(Keys.ARROW_UP);
         }
-        Assert.assertEquals("60", inputField.getAttribute("value")); // correct + arrow up
+        softAssert.assertEquals("60", inputField.getAttribute("value")); // correct + arrow up
         for (int y = 0; y < 10; y++){
             driver.findElement(By.tagName("input")).sendKeys(Keys.ARROW_DOWN);
         }
-        Assert.assertEquals("50", inputField.getAttribute("value")); // correct + arrow down
+        softAssert.assertEquals("50", inputField.getAttribute("value")); // correct + arrow down
     }
 
     @AfterMethod(alwaysRun = true)
