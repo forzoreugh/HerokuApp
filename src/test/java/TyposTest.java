@@ -1,0 +1,34 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import java.time.Duration;
+import java.util.List;
+
+public class TyposTest {
+
+    WebDriver driver;
+
+    @BeforeMethod
+    public void setup(){
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    }
+
+    @Test
+    public void CheckValueEntry() {
+        driver.get("http://the-internet.herokuapp.com/typos");
+        List<WebElement> checkboxes = driver.findElements(By.tagName("p"));
+        Assert.assertEquals(checkboxes.get(1).getText(), "Sometimes you'll see a typo, other times you won't.");
+    }
+
+    @AfterMethod (alwaysRun = true)
+    public void quitBrowser(){
+        driver.quit();
+    }
+}
