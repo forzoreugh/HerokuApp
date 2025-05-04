@@ -21,7 +21,7 @@ public class AddRemoveElementsTest {
     }
 
     @Test
-    public void CheckDisplayOfTheDeletedElement(){
+    public void checkDisplayOfTheDeletedElement(){
         driver.get("https://the-internet.herokuapp.com/add_remove_elements/");
         driver.findElement(By.xpath("//button[text()='Add Element']")).click();
         driver.findElement(By.xpath("//button[text()='Add Element']")).click();
