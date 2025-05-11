@@ -6,7 +6,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import java.time.Duration;
-import static org.testng.Assert.*;
 
 public class DynamicControlsTest extends BaseTest {
 
@@ -16,13 +15,13 @@ public class DynamicControlsTest extends BaseTest {
         driver.findElement(By.xpath("//button[text()='Remove']")).click();
         WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-        assertEquals(driver.findElement(By.cssSelector("[id=message]")).getText(), "It's gone!");
+        softAssert.assertEquals(driver.findElement(By.cssSelector("[id=message]")).getText(), "It's gone!");
         WebElement checkbox = driver.findElement(By.xpath("//input[@type='text']"));
         checkbox.isEnabled();
-        assertFalse(driver.findElement(By.cssSelector("[type=text]")).isEnabled());
+        softAssert.assertFalse(driver.findElement(By.cssSelector("[type=text]")).isEnabled());
         driver.findElement(By.xpath("//button[text()='Enable']")).click();
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
-        assertTrue(driver.findElement(By.cssSelector("[type=text]")).isEnabled());
+        softAssert.assertTrue(driver.findElement(By.cssSelector("[type=text]")).isEnabled());
         softAssert.assertAll();
     }
 }
