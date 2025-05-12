@@ -13,11 +13,11 @@ public class DynamicControlsTest extends BaseTest {
     public void checkDisplayOfTheDeletedElement() {
         basePage.getUrl("https://the-internet.herokuapp.com/dynamic_controls");
         driver.findElement(By.xpath("//button[text()='Remove']")).click();
-        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
         softAssert.assertEquals(driver.findElement(By.cssSelector("[id=message]")).getText(), "It's gone!");
         WebElement checkbox = driver.findElement(By.xpath("//input[@type='text']"));
-        checkbox.isEnabled();
+        softAssert.assertFalse(checkbox.isEnabled());
         softAssert.assertFalse(driver.findElement(By.cssSelector("[type=text]")).isEnabled());
         driver.findElement(By.xpath("//button[text()='Enable']")).click();
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));

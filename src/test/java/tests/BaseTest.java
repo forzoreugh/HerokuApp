@@ -3,6 +3,7 @@ package tests;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.SoftAssert;
@@ -15,6 +16,7 @@ public class BaseTest {
     WebDriver driver;
     BasePage basePage;
     SoftAssert softAssert;
+    WebDriverWait webDriverWait;
 
     @BeforeMethod
     public WebDriver setup() {
@@ -32,10 +34,11 @@ public class BaseTest {
         driver.manage().window().maximize();
         basePage = new BasePage(driver);
         softAssert  = new SoftAssert();
+        webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
         return driver;
     }
 
-    @AfterMethod
+    @AfterMethod (alwaysRun = true)
     public void quitBrowser(){
         driver.quit();
     }
